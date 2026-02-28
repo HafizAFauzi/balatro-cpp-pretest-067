@@ -15,6 +15,8 @@ public:
     int getRank() const;
     Suit getSuit() const;
     std::string getSymbol() const;
+    int getPokerValue() const;
+    std::string getRankString() const;
 
 private:
     Suit suit;

@@ -1,18 +1,25 @@
+// test mode
 #include <iostream>
-#include "RunSession.h"
-#include "ScoringSystem.h"
-#include "ShopSystem.h"
-#include "ModifierFactory.h"
+#include "Deck.h"
+
 
 int main() {
-    std::cout << "=== Balatro, Chemistry? ===" << std::endl;
+    std::cout << "=== Deck Test ===" << std::endl;
 
-    ScoringSystem scoring;
-    ShopSystem shop;
-    ModifierFactory factory;
+    Deck deck;
 
-    RunSession session(&scoring, &shop, &factory);
-    session.start();
+    deck.shuffle();
+
+    std::cout << "Drawing 5 cards:\n";
+
+    for (int i = 0; i < 5; i++) {
+        Card card = deck.drawCard();
+
+        std::cout 
+            << "Rank: " << card.getRank()
+            << " | Element: " << card.getSymbol()
+            << std::endl;
+    }
 
     return 0;
 }
