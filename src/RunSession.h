@@ -1,40 +1,29 @@
 #pragma once
 
 #include <vector>
-#include <memory>
-
-// Forward declaration (biar tidak circular include)
-class ScoringSystem;
-class ShopSystem;
-class ModifierFactory;
-class IModifier;
+#include "Deck.h"
+#include "Blind.h"
+#include "ScoringSystem.h"
+#include "Card.h"
 
 class RunSession {
 public:
-    // Constructor (Dependency Injection)
-    RunSession(ScoringSystem* scoring,
-               ShopSystem* shop,
-               ModifierFactory* factory);
-
-    // Mulai game loop
+    RunSession(int ante);
     void start();
 
 private:
-    // Core loop
-    void playRound();
-    void handleShopPhase();
-    void applyModifiers(int& score);
+    void playBlind();
+    void drawUpToEight();
+    void showCurrentHand() const;
+    std::vector<int> getPlayerChoice() const;
+    void removePlayedCards(const std::vector<int>& indices);
 
-    // Game state
-    int currentRound;
+    Deck deck;
+    Blind currentBlind;
+    ScoringSystem scoringSystem;
+
+    std::vector<Card> currentHand;
+
     int totalScore;
-    bool isRunning;
-
-    // Systems
-    ScoringSystem* scoringSystem;
-    ShopSystem* shopSystem;
-    ModifierFactory* modifierFactory;
-
-    // Active modifiers
-    std::vector<std::shared_ptr<IModifier>> activeModifiers;
+    int handsRemaining;
 };
