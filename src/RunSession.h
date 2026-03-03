@@ -12,7 +12,7 @@ public:
     void start();
 
 private:
-    void playBlind();
+    bool playBlind(const Blind& blind);
     void drawUpToEight();
     void showCurrentHand() const;
     std::vector<int> getPlayerChoice() const;
@@ -26,4 +26,5 @@ private:
 
     int totalScore;
     int handsRemaining;
+    int currentAnte;
 };

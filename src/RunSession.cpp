@@ -7,29 +7,49 @@
 RunSession::RunSession(int ante)
     : currentBlind(BlindFactory::createSmallBlind(ante)),
       totalScore(0),
-      handsRemaining(4)
+      handsRemaining(4),
+      currentAnte(ante)
 {
 }
 
 void RunSession::start() {
+    std::cout << "=== Starting Run (Ante " << currentAnte << ") ===\n";
 
-    std::cout << "=== Starting Run ===\n";
-    std::cout << "Blind: " << currentBlind.getName()
-              << " | Target: "
-              << currentBlind.getTargetScore()
-              << "\n\n";
+    // 1. Jalankan Small Blind
+    if (!playBlind(BlindFactory::createSmallBlind(currentAnte))) {
+        std::cout << "GAME OVER di Small Blind.\n";
+        return;
+    }
 
-    deck = Deck();
-    deck.shuffle();
+    // 2. Jalankan Big Blind
+    if (!playBlind(BlindFactory::createBigBlind(currentAnte))) {
+        std::cout << "GAME OVER di Big Blind.\n";
+        return;
+    }
 
-    totalScore = 0;
-    handsRemaining = 4;
-    currentHand.clear();
+    // 3. Jalankan Boss Blind
+    // (Pastikan kamu sudah menambah createBossBlind di BlindFactory)
+    if (!playBlind(BlindFactory::createBossBlind(currentAnte))) {
+        std::cout << "GAME OVER di Boss Blind.\n";
+        return;
+    }
 
-    playBlind();
+    std::cout << "\nCONGRATULATIONS! Kamu menyelesaikan Ante " << currentAnte << "!\n";
 }
 
-void RunSession::playBlind() {
+// Berikan return bool untuk mengecek apakah pemain menang atau kalah
+bool RunSession::playBlind(const Blind& blind) {
+    currentBlind = blind; // Set blind aktif saat ini
+    
+    std::cout << "\n--- NEW BLIND: " << currentBlind.getName() 
+              << " (Target: " << currentBlind.getTargetScore() << ") ---\n";
+
+    // Reset status untuk setiap blind baru
+    deck = Deck();
+    deck.shuffle();
+    currentHand.clear();
+    totalScore = 0;
+    handsRemaining = 4;
 
     drawUpToEight();
 
@@ -64,9 +84,10 @@ void RunSession::playBlind() {
     }
 
     if (totalScore >= currentBlind.getTargetScore()) {
-        std::cout << "\nBlind Cleared!\n";
+        // std::cout << "Blind Cleared! Sisa skor akan dikonversi (opsional).\n";
+        return true; // Berhasil lanjut
     } else {
-        std::cout << "\nFailed to reach target.\n";
+        return false; // Kalah
     }
 }
 
@@ -87,7 +108,7 @@ void RunSession::showCurrentHand() const {
 
     for (size_t i = 0; i < currentHand.size(); ++i) {
         std::cout << i << ": "
-                  << currentHand[i].getRankString()
+                  << currentHand[i].getRankString() << " "
                   << currentHand[i].getSymbol()
                   << "\n";
     }
