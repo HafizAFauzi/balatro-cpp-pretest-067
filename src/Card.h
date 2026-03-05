@@ -2,10 +2,10 @@
 #include <string>
 
 enum class Suit {
-    NonLogam,     // Hati
-    Alkali,       // Sekop
-    Transisi,     // Keriting
-    GasMulia      // Wajik
+    Pyro,     // Hati
+    Hydro,       // Sekop
+    Cryo,     // Keriting
+    Electro      // Wajik
 };
 
 class Card {
@@ -21,5 +21,5 @@ public:
 private:
     Suit suit;
     int rank;              // 1-13 (A-K)
-    std::string symbol;    // "H", "Li", "Fe"
+    std::string symbol;    // "Pyro", "Hydro", "Cryo", "Electro"
 };

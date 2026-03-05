@@ -12,34 +12,34 @@ Deck::Deck() {
 void Deck::initializeDeck() {
     cards.clear();
 
-    std::vector<std::string> nonLogam = {
-        "Hidrogen","Karbon","Nitrogen","Oksigen","Fosfor",
-        "Flourin","Klorin","Bromin","Iodin","Astatin",
-        "Assistant","Marie Curie","Mendeleev"
+    std::vector<std::string> pyro = {
+        "Pyro","Pyro","Pyro","Pyro","Pyro",
+        "Pyro","Pyro","Pyro","Pyro","Pyro",
+        "Diluc (Pyro)","Mavuika (Pyro)","Haborym (Pyro)"
     };
 
-    std::vector<std::string> alkali = {
-        "Litium","Natrium","Kalium","Rubidium","Sesium",
-        "Fransium","Magnesium","Kalsium","Stronsium","Barium",
-        "Assistant","Marie Curie","Mendeleev"
+    std::vector<std::string> hydro = {
+        "Hydro","Hydro","Hydro","Hydro","Hydro",
+        "Hydro","Hydro","Hydro","Hydro","Hydro",
+        "Barbara (Hydro)","Furina (Hydro)","Focalors (Hydro)"
     };
 
-    std::vector<std::string> transisi = {
-        "Skandium","Besi","Nikel","Tembaga","Seng",
-        "Perak","Platinum","Emas","Merkuri","Tungsten",
-        "Assistant","Marie Curie","Mendeleev"
+    std::vector<std::string> cryo = {
+        "Cryo","Cryo","Cryo","Cryo","Cryo",
+        "Cryo","Cryo","Cryo","Cryo","Cryo",
+        "Eula (Cryo)","La Signora (Cryo)","Tsaritsa (Cryo)"
     };
 
-    std::vector<std::string> gasMuliaAndNuklir = {
-        "Helium","Neon","Argon","Kripton","Xenon",
-        "Radon","Uranium","Plutonium","Thorium","Curium",
-        "Assistant","Marie Curie","Mendeleev"
+    std::vector<std::string> electro = {
+        "Electro","Electro","Electro","Electro","Electro",
+        "Electro","Electro","Electro","Electro","Electro",
+        "Raiden Shogun (Electro)","Ei (Electro)","Beelzebul (Electro)"
     };
 
-    addSuit(Suit::NonLogam, nonLogam);
-    addSuit(Suit::Alkali, alkali);
-    addSuit(Suit::Transisi, transisi);
-    addSuit(Suit::GasMulia, gasMuliaAndNuklir);
+    addSuit(Suit::Pyro, pyro);
+    addSuit(Suit::Hydro, hydro);
+    addSuit(Suit::Cryo, cryo);
+    addSuit(Suit::Electro, electro);
 }
 
 // ===== Implementasi addSuit =====
